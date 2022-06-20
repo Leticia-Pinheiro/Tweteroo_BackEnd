@@ -36,7 +36,6 @@ server.post("/sign-up", (req, res) => {
     }     
 });
 
-
 server.post("/tweets", (req, res) => {
     
     const tweetMensagem = req.body.tweet;
@@ -54,14 +53,8 @@ server.post("/tweets", (req, res) => {
     }
 });
 
-server.get("/", (req, res) => {        
-    res.send("ola")
-});
 
 
-server.get("/tweets", (req, res) => {        
-    res.send(tweets)
-});
 
 server.listen(5000)
 
