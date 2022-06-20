@@ -4,33 +4,28 @@ import cors from 'cors'
 const server = express()
 server.use(cors())
 
+let usuarios = []
 
-let usuario ={
+let tweet ={
     username: '',
-    avatar: ''
+    avatar: '',
+    tweet: ''
 }
 
 let tweets = []
 
-let tweet = {
-    username: '',
-    tweet: '',
-    avatar: ''
-}
+
 
 server.use(express.json());
 
 server.post("/sign-up", (req, res) => {
-    if (req.body.username && req.body.avatar) {
-        const usuarioRegistrado = usuario.find(
-            (usuario) => usuario.username === req.body.username
-        );
-        if (usuario) {
-            res.status(400).send('Usuário já existe');
-        } else {
-            usuario.push(req.body);            
+    console.log(req.body)
+    if (req.body.username && req.body.avatar) {      
+        
+            tweet = req.body;            
             res.status(201).send('OK');
-        }
+            usuarios.push(tweet)
+        
     } else {
         res.status(400).send('Falta nome de usuário ou avatar');
     }     
@@ -38,25 +33,15 @@ server.post("/sign-up", (req, res) => {
 
 server.post("/tweets", (req, res) => {
     
-    const tweetMensagem = req.body.tweet;
-    const { usuário } = req.headers;
-    if (tweetMensagem && usuário) {
-        tweet.push(req.body)
-        const userTweet = users.find(
-            (usuario) => usuario.username === tweet.username
-        );
-        tweet = { ...tweet, avatar: userTweet.avatar };
+    const tweetMensagem = req.body.tweet;    
+    if (tweetMensagem) {
+        tweet = req.body       
         tweets.push(tweet);
         res.status(201).send('OK');
     } else {
         res.status(400).send('Falta nome de usuário ou tweet');
     }
 });
-
-server.get("/", (req, res) => {        
-    res.send("ola")
-});
-
 
 server.get("/tweets", (req, res) => {        
     res.send(tweets)
