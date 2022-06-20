@@ -53,6 +53,15 @@ server.post("/tweets", (req, res) => {
     }
 });
 
+server.get("/", (req, res) => {        
+    res.send("ola")
+});
+
+
+server.get("/tweets", (req, res) => {        
+    res.send(tweets)
+});
+
 
 
 
